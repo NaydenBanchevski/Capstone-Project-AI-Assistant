@@ -38,31 +38,31 @@ export default function Safari({
           fillRule="evenodd"
           clipRule="evenodd"
           d="M1.06738 12C1.06738 5.92487 5.99225 1 12.0674 1H1189.93C1196.01 1 1200.93 5.92487 1200.93 12V51H1.06738V12Z"
-          className="fill-white dark:fill-[#262626]"
+          className="fill-[rgb(7,89,133)] dark:fill-[#262626]"
         />
         <circle
           cx="27"
           cy="25"
           r="6"
-          className="fill-[#E5E5E5] dark:fill-[#404040]"
+          className="fill-red-500 dark:fill-[#404040]"
         />
         <circle
           cx="47"
           cy="25"
           r="6"
-          className="fill-[#E5E5E5] dark:fill-[#404040]"
+          className="fill-yellow-500 dark:fill-[#404040]"
         />
         <circle
           cx="67"
           cy="25"
           r="6"
-          className="fill-[#E5E5E5] dark:fill-[#404040]"
+          className="fill-green-500 dark:fill-[#404040]"
         />
         <path
           d="M286 17C286 13.6863 288.686 11 292 11H946C949.314 11 952 13.6863 952 17V35C952 38.3137 949.314 41 946 41H292C288.686 41 286 38.3137 286 35V17Z"
-          className="fill-[#E5E5E5] dark:fill-[#404040]"
+          className="fill-white dark:fill-[#404040]"
         />
-        <g className="mix-blend-luminosity">
+        <g className="mix-blend-luminosity flex justify-center w-full">
           <path
             d="M566.269 32.0852H572.426C573.277 32.0852 573.696 31.6663 573.696 30.7395V25.9851C573.696 25.1472 573.353 24.7219 572.642 24.6521V23.0842C572.642 20.6721 571.036 19.5105 569.348 19.5105C567.659 19.5105 566.053 20.6721 566.053 23.0842V24.6711C565.393 24.7727 565 25.1917 565 25.9851V30.7395C565 31.6663 565.418 32.0852 566.269 32.0852ZM567.272 22.97C567.272 21.491 568.211 20.6785 569.348 20.6785C570.478 20.6785 571.423 21.491 571.423 22.97V24.6394L567.272 24.6458V22.97Z"
             fill="#A3A3A3"

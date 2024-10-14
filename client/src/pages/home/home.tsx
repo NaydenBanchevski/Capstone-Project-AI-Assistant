@@ -1,67 +1,46 @@
 import { Title } from "../../components/Title";
 import Safari from "../../components/ui/safari";
-import { CardBody, CardContainer, CardItem } from "../../components/ui/3d-card";
 import { BorderBeam } from "../../components/ui/border-beam";
+import { motion } from "framer-motion";
 
 export const Home = () => {
   return (
-    <section className="flex flex-col gap-20 h-[120vh] ">
-      <Title />
-      <div className="flex w-full   justify-center">
-        <div className="relative rounded-xl">
-          <BorderBeam />
-          <Safari url="ai-assistant-Per-Scholas.com" src="" />
-        </div>
-      </div>
-    </section>
+    <div className="relative z-10" id="home">
+      <section className="flex flex-col h-[120vh] w-full  relative">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 0 }}
+          transition={{
+            duration: 1.2,
+            ease: "easeInOut",
+          }}
+          className="flex w-full flex-col  items-center"
+        >
+          <Title />
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 0 }}
+            transition={{
+              delay: 0.5,
+              duration: 1.2,
+              ease: "easeInOut",
+            }}
+            className="relative rounded-xl flex"
+          >
+            <BorderBeam
+              colorFrom="rgb(11,138,198)"
+              colorTo="orange"
+              size={400}
+            />
+            <Safari
+              url="ai-assistant-Per-Scholas.com"
+              className="w-[380px] h-full sm:w-full sm:h-full"
+            />
+          </motion.div>
+        </motion.div>
+      </section>
+    </div>
   );
 };
-
-export function ThreeDCardDemo() {
-  return (
-    <CardContainer className="inter-var">
-      <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
-        <CardItem
-          translateZ="50"
-          className="text-xl font-bold text-neutral-600 dark:text-white"
-        >
-          Make things float in air
-        </CardItem>
-        <CardItem
-          as="p"
-          translateZ="60"
-          className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
-        >
-          Hover over this card to unleash the power of CSS perspective
-        </CardItem>
-        <CardItem translateZ="100" className="w-full mt-4">
-          <img
-            src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            height="1000"
-            width="1000"
-            className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-            alt="thumbnail"
-          />
-        </CardItem>
-        <div className="flex justify-between items-center mt-20">
-          <CardItem
-            translateZ={20}
-            as="a"
-            href="https://twitter.com/mannupaaji"
-            target="__blank"
-            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
-          >
-            Try now →
-          </CardItem>
-          <CardItem
-            translateZ={20}
-            as="button"
-            className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
-          >
-            Sign up
-          </CardItem>
-        </div>
-      </CardBody>
-    </CardContainer>
-  );
-}
