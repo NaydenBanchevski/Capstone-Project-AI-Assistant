@@ -7,7 +7,6 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import { cn } from "../../lib/utils";
-import { div } from "framer-motion/client";
 
 export const FloatingNav = ({
   navItems,
@@ -60,6 +59,10 @@ export const FloatingNav = ({
           className
         )}
       >
+        <div className="flex items-center  gap-5">
+          <img src="/logo.png" alt="ai" width={50} />
+          <p className="text-white hidden md:flex">Per Scholas AI</p>
+        </div>
         <div
           className="flex
          gap-5"
