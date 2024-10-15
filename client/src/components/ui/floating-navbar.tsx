@@ -7,6 +7,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import { cn } from "../../lib/utils";
+import { useNavigate } from "react-router-dom"; // Make sure to import from 'react-router-dom'
 
 export const FloatingNav = ({
   navItems,
@@ -19,27 +20,26 @@ export const FloatingNav = ({
   }[];
   className?: string;
 }) => {
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
-  const [visible, setVisible] = useState(true); // Start as visible
+  const [visible, setVisible] = useState(true);
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     if (typeof current === "number") {
       let direction = current - scrollYProgress.getPrevious()!;
 
-      // Show the nav if scrolling up, hide if scrolling down
       if (direction < 0) {
-        setVisible(true); // User is scrolling up
+        setVisible(true);
       } else if (scrollYProgress.get() > 0.05) {
-        setVisible(false); // User is scrolling down and more than 5% down
+        setVisible(false);
       }
     }
   });
 
-  // Optionally, if you want to hide it when scrolled down
   useEffect(() => {
     const handleScroll = () => {
       if (scrollYProgress.get() < 0.05) {
-        setVisible(true); // Show when at the top
+        setVisible(true);
       }
     };
 
@@ -52,7 +52,7 @@ export const FloatingNav = ({
       <motion.div
         initial={{
           opacity: 1,
-          y: 0, // Start visible
+          y: 0,
         }}
         animate={{
           y: visible ? 0 : -100,
@@ -72,7 +72,7 @@ export const FloatingNav = ({
             src="/logo.png"
             alt="ai"
             width={25}
-            className="invert "
+            className="invert"
             draggable={false}
           />
           <p className="text-white hidden md:flex hover:text-yellow-400 cursor-pointer">
@@ -80,7 +80,7 @@ export const FloatingNav = ({
           </p>
         </div>
         <div className="flex gap-5">
-          {navItems.map((navItem: any, index: number) => (
+          {navItems.map((navItem, index) => (
             <a
               key={index}
               href={navItem.link}
@@ -94,11 +94,17 @@ export const FloatingNav = ({
           ))}
         </div>
         <div className="flex gap-2 mr-auto">
-          <button className="border text-sm font-medium relative border-none text-white hover:text-yellow-400 h-[40px] w-[100px] rounded-full">
-            <span>Login</span>
+          <button
+            className="border text-sm font-medium relative border-none text-white hover:text-yellow-400 h-[40px] w-[100px] rounded-full"
+            onClick={() => navigate("/sign-in")}
+          >
+            <span>Sign In</span>
             <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px h-px" />
           </button>
-          <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] bg-white text-sky-800 dark:text-white hover:bg-yellow-400 h-[40px] w-[100px] rounded-full">
+          <button
+            className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] bg-white text-sky-800 dark:text-white hover:bg-yellow-400 h-[40px] w-[100px] rounded-full"
+            onClick={() => navigate("/sign-up")}
+          >
             <span>Sign Up</span>
             <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px" />
           </button>

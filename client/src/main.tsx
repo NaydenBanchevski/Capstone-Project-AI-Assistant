@@ -1,34 +1,40 @@
 import { StrictMode } from "react";
-import App from "./App.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
-import { Nav } from "./components/Nav.tsx";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { DashboardDemo } from "./pages/dashboard/Dashboard.tsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { DashboardLayout } from "./pages/dashboard/Dashboard.tsx";
 import { Home } from "./pages/home/Home.tsx";
-
-// Layout component to include Nav globally
-const Layout = () => (
-  <>
-    <Nav />
-    <Outlet /> {/* Render matching route components */}
-  </>
-);
+import SignInPage from "./pages/sign-in/SignIn.tsx";
+import SignUpPage from "./pages/sign-up/SignUp.tsx";
+import { ClerkProvider } from "@clerk/clerk-react";
 
 const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
+  { path: "/dashboard", element: <DashboardLayout /> },
+  { path: "/sign-up", element: <SignUpPage /> },
+  { path: "/sign-in", element: <SignInPage /> },
   {
-    element: <Layout />, // Include Nav in every page
-    children: [
-      { path: "/", element: <Home /> },
-      { path: "/dashboard", element: <DashboardDemo /> },
-      { path: "/sign-up", element: <h1>Sign Up Page</h1> }, // Placeholder
-      { path: "/sign-in", element: <h1>Sign In Page</h1> }, // Placeholder
-    ],
+    path: "/sign-up",
+    element: <SignUpPage />,
+  },
+  {
+    path: "/sign-in/sso-callback",
+    element: <SignInPage />,
   },
 ]);
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ClerkProvider
+      appearance={{ baseTheme: "light" }}
+      publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}
+      afterSignOutUrl="/dashboard"
+    >
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ClerkProvider>
   </StrictMode>
 );

@@ -29,11 +29,11 @@ export const Hero = () => {
             ease: "easeInOut",
           }}
           className="
-           rounded-xl flex"
+           rounded-xl flex overflow-hidden"
         >
           <Safari
             url="ai-assistant-Per-Scholas.com"
-            className="w-[380px] h-full sm:w-full sm:h-full relative"
+            className="w-[380px] h-full sm:w-full sm:h-full relative "
           />
           <BorderBeam
             colorFrom="#facc15"

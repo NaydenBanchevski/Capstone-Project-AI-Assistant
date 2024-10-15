@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   IconArrowLeft,
@@ -11,8 +11,23 @@ import {
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/sidebar";
+import { SignedIn, useAuth, UserButton } from "@clerk/clerk-react";
+import { useNavigate } from "react-router";
 
-export function DashboardDemo() {
+export function DashboardLayout() {
+  const { userId, isLoaded } = useAuth();
+  const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoaded && !userId) {
+      navigate("/sign-in");
+    }
+  }, [isLoaded, userId, navigate]);
+
+  if (!isLoaded) return <div>Loading...</div>;
+
   const links = [
     {
       label: "Dashboard",
@@ -28,22 +43,8 @@ export function DashboardDemo() {
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    {
-      label: "Settings",
-      href: "#",
-      icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Logout",
-      href: "#",
-      icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
   ];
-  const [open, setOpen] = useState(false);
+
   return (
     <div
       className={cn(
@@ -61,21 +62,9 @@ export function DashboardDemo() {
             </div>
           </div>
           <div>
-            <SidebarLink
-              link={{
-                label: "Manu Arora",
-                href: "#",
-                icon: (
-                  <img
-                    src="https://assets.aceternity.com/manu.png"
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            />
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </SidebarBody>
       </Sidebar>

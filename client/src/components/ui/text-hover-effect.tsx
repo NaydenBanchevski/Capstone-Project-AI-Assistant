@@ -51,19 +51,17 @@ export const TextHoverEffect = ({
             {hovered && (
               <>
                 <stop offset="0%" stopColor={"#F59E0B"} />
-                {/* <stop offset="25%" stopColor={"#EF4444"} /> red-500 */}
-                {/* <stop offset="50%" stopColor={"#3B82F6"} /> blue-500 */}
-                {/* <stop offset="75%" stopColor={"#06B6D4"} /> cyan-500 */}
-                {/* <stop offset="100%" stopColor={"#8B5CF6"} /> violet-500 */}
               </>
             )}
           </linearGradient>
 
+          {/* Corrected motion.radialGradient to pass cx and cy from maskPosition */}
           <motion.radialGradient
             id="revealMask"
             gradientUnits="userSpaceOnUse"
             r="20%"
-            animate={maskPosition}
+            cx={maskPosition.cx} // Ensure these values are always valid
+            cy={maskPosition.cy}
             transition={{ duration: duration ?? 0, ease: "easeOut" }}
           >
             <stop offset="0%" stopColor="white" />

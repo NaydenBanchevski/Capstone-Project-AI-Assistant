@@ -4,6 +4,7 @@ import { About } from "../../components/About";
 import { Categories } from "../../components/Categories";
 import { BackgroundBeams } from "../../components/ui/background-beams";
 import { motion } from "framer-motion";
+import { Nav } from "../../components/Nav";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -13,6 +14,7 @@ const sectionVariants = {
 export const Home = () => {
   return (
     <main className="h-full flex flex-col">
+      <Nav />
       <BackgroundBeams className="opacity-50" />
       <Hero />
 
