@@ -162,7 +162,7 @@ export const SidebarLink = ({
 }: {
   link: Links;
   className?: string;
-  props?: LinkProps;
+  props?: Links;
 }) => {
   const { open, animate } = useSidebar();
   return (
