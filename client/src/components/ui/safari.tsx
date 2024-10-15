@@ -34,11 +34,24 @@ export default function Safari({
           d="M0 12C0 5.37258 5.37258 0 12 0H1190C1196.63 0 1202 5.37258 1202 12V52H0L0 12Z"
           className="fill-[#E5E5E5] dark:fill-[#404040]"
         />
+        <defs>
+          <linearGradient id="gradientId" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop
+              offset="0%"
+              style={{ stopColor: "rgb(7,89,133)", stopOpacity: 1 }}
+            />
+            <stop
+              offset="120%"
+              style={{ stopColor: "rgb(29,155,240)", stopOpacity: 1 }}
+            />
+          </linearGradient>
+        </defs>
+
         <path
           fillRule="evenodd"
           clipRule="evenodd"
           d="M1.06738 12C1.06738 5.92487 5.99225 1 12.0674 1H1189.93C1196.01 1 1200.93 5.92487 1200.93 12V51H1.06738V12Z"
-          className="fill-[rgb(7,89,133)] dark:fill-[#262626]"
+          fill="url(#gradientId)"
         />
         <circle
           cx="27"

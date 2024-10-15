@@ -1,5 +1,6 @@
 import { IconHome, IconInfoCircle, IconPhone } from "@tabler/icons-react";
 import { FloatingNav } from "./ui/floating-navbar";
+import { div } from "framer-motion/client";
 
 const navItems = [
   {
@@ -20,5 +21,10 @@ const navItems = [
 ];
 
 export const Nav = () => {
-  return <FloatingNav navItems={navItems} />;
+  return (
+    <FloatingNav
+      navItems={navItems}
+      className=" max-w-[1440px] bg-transparent"
+    />
+  );
 };

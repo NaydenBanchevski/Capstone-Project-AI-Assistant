@@ -16,9 +16,11 @@ export const About = () => {
           duration: 1.2,
           ease: "easeInOut",
         }}
-        className="flex flex-col  max-w-[1240px] items-center mt-0 h-full w-full"
+        className="flex flex-col  max-w-[1200px] items-center mt-0 h-full w-full"
       >
-        <Title header="About" subtext="Your AI Assistant" scale="75" />
+        <h2 className="text-4xl mt-[200px] md:text-4xl lg:text-7xl font-semibold max-w-7xl mx-auto text-center  relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-sky-500 via-sky-800 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white mb-10">
+          About <br /> AI Assistant
+        </h2>
 
         <motion.div className="">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
