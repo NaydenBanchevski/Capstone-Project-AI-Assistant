@@ -3,10 +3,7 @@ import { FaFacebookF, FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 export const Footer = () => {
   return (
-    <footer
-      id="contact"
-      className="w-full flex flex-col items-center mt-[100px] bg-gradient-to-r from-sky-800 to-sky-600 text-white py-6"
-    >
+    <footer className="w-full flex flex-col items-center mt-[100px] bg-gradient-to-r from-sky-800 to-sky-600 text-white py-6">
       <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-between items-center px-4">
         <p className="text-sm text-center md:text-left mb-4 md:mb-0">
           &copy; 2024 AI Assistant Per Scholas. All rights reserved.

@@ -45,7 +45,7 @@ export const Categories: React.FC = () => {
   ];
 
   return (
-    <section className="text-white sm:mb-[100px] px-8">
+    <section className="text-white mb-[100px]  px-8" id="contact">
       <div
         className="max-w-[1200px] 
        mt-0 mx-auto text-center"
