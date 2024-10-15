@@ -6,7 +6,7 @@ export const Hero = () => {
   return (
     <section
       id="home"
-      className="flex flex-col h-full mt-[200px] w-full relative"
+      className="flex flex-col h-full mt-[100px] w-full relative"
     >
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -28,12 +28,18 @@ export const Hero = () => {
             duration: 1.2,
             ease: "easeInOut",
           }}
-          className="relative rounded-xl flex"
+          className="
+           rounded-xl flex"
         >
-          <BorderBeam colorFrom="rgb(11,138,198)" colorTo="green" size={400} />
           <Safari
             url="ai-assistant-Per-Scholas.com"
-            className="w-[380px] h-full sm:w-full sm:h-full"
+            className="w-[380px] h-full sm:w-full sm:h-full relative"
+          />
+          <BorderBeam
+            colorFrom="#facc15"
+            colorTo="#F59E0B"
+            size={400}
+            className="absolute"
           />
         </motion.div>
       </motion.div>

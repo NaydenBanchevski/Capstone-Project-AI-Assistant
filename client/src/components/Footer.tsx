@@ -11,7 +11,7 @@ export const Footer = () => {
         <p className="text-sm text-center md:text-left mb-4 md:mb-0">
           &copy; 2024 AI Assistant Per Scholas. All rights reserved.
         </p>
-        <div className="flex items-center gap-4 ">
+        <div className="flex items-center gap-4  mb-4">
           <a
             href="https://www.facebook.com"
             target="_blank"

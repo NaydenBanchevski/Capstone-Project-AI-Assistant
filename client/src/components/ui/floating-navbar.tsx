@@ -75,7 +75,9 @@ export const FloatingNav = ({
             className="invert "
             draggable={false}
           />
-          <p className="text-white hidden md:flex">Per Scholas AI</p>
+          <p className="text-white hidden md:flex hover:text-yellow-400 cursor-pointer">
+            Per Scholas AI
+          </p>
         </div>
         <div className="flex gap-5">
           {navItems.map((navItem: any, index: number) => (
@@ -83,7 +85,7 @@ export const FloatingNav = ({
               key={index}
               href={navItem.link}
               className={cn(
-                "relative text-neutral-50 items-center flex space-x-1 dark:hover:text-neutral-300 hover:text-neutral-200"
+                "relative text-neutral-50 items-center flex space-x-1 hover:text-yellow-400"
               )}
             >
               <span className="block sm:hidden">{navItem.icon}</span>
@@ -92,11 +94,11 @@ export const FloatingNav = ({
           ))}
         </div>
         <div className="flex gap-2 mr-auto">
-          <button className="border text-sm font-medium relative border-none text-white hover:text-neutral-200 h-[40px] w-[100px] rounded-full">
+          <button className="border text-sm font-medium relative border-none text-white hover:text-yellow-400 h-[40px] w-[100px] rounded-full">
             <span>Login</span>
             <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px h-px" />
           </button>
-          <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] bg-white text-sky-800 dark:text-white h-[40px] w-[100px] rounded-full">
+          <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] bg-white text-sky-800 dark:text-white hover:bg-yellow-400 h-[40px] w-[100px] rounded-full">
             <span>Sign Up</span>
             <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent h-px" />
           </button>

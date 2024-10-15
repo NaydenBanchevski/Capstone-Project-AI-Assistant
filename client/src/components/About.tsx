@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Title } from "./Title";
 import { WobbleCard } from "./ui/wobble-card";
 
 export const About = () => {
@@ -18,14 +17,14 @@ export const About = () => {
         }}
         className="flex flex-col  max-w-[1200px] items-center mt-0 h-full w-full"
       >
-        <h2 className="text-4xl mt-[200px] md:text-4xl lg:text-7xl font-semibold max-w-7xl mx-auto text-center  relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-sky-500 via-sky-800 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white mb-10">
+        <h2 className="text-4xl sm:mt-[200px] mt-[50px] md:text-4xl lg:text-7xl font-semibold max-w-7xl mx-auto text-center  relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-sky-500 via-sky-800 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white mb-10">
           About <br /> AI Assistant
         </h2>
 
         <motion.div className="">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
             <WobbleCard
-              containerClassName="col-span-1 lg:col-span-2 h-full bg-sky-800 min-h-[500px] lg:min-h-[300px] shadow-lg"
+              containerClassName="col-span-1 w-[400px] sm:w-full lg:col-span-2 h-full bg-sky-800 min-h-[400px] lg:min-h-[300px] shadow-lg"
               className=""
             >
               <div className="max-w-xs">
@@ -47,7 +46,7 @@ export const About = () => {
               />
             </WobbleCard>
 
-            <WobbleCard containerClassName="col-span-1 min-h-[300px] bg-sky-700 shadow-lg">
+            <WobbleCard containerClassName="col-span-1 w-[400px] sm:w-full min-h-[300px] bg-sky-700 shadow-lg">
               <h2 className="max-w-80 text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
                 Simple Resume Builder
               </h2>
@@ -57,7 +56,7 @@ export const About = () => {
               </p>
             </WobbleCard>
 
-            <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-blue-900 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px] shadow-lg">
+            <WobbleCard containerClassName="col-span-1  w-[400px] sm:w-full lg:col-span-3 bg-blue-900 min-h-[450px] lg:min-h-[600px] xl:min-h-[300px] shadow-lg">
               <div className="max-w-sm">
                 <h2 className="max-w-sm md:max-w-lg text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
                   Start Using Your AI Assistant Today

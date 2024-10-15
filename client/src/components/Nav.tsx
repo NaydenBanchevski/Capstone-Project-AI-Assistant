@@ -1,6 +1,5 @@
 import { IconHome, IconInfoCircle, IconPhone } from "@tabler/icons-react";
 import { FloatingNav } from "./ui/floating-navbar";
-import { div } from "framer-motion/client";
 
 const navItems = [
   {
