@@ -1,6 +1,5 @@
 import { cn } from "../../lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -12,7 +11,7 @@ export const HoverEffect = ({
     title: string;
     description: string;
     link: string;
-    disabled?: boolean; // Add disabled prop type
+    disabled?: boolean | any;
   }[];
   className?: string;
 }) => {
@@ -27,7 +26,7 @@ export const HoverEffect = ({
     >
       {items.map((item, idx) => (
         <Link
-          to={item.disabled ? "#" : item.link} // Prevent navigation if disabled
+          to={item.disabled ? "#" : item.link}
           key={idx}
           className={cn(
             "relative group block p-2 h-full w-full",

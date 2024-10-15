@@ -40,7 +40,7 @@ export const links = [
   },
   {
     label: "Createa new chat",
-    to: "/dashboard/chats",
+    to: "/dashboard/chat",
     icon: (
       <IconMessage className="text-white dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),

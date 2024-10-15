@@ -7,6 +7,9 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { links, Logo, LogoIcon } from "../../components/ui/Logo";
 import { HoverEffect } from "../../components/ui/card-hover-effect";
 import { PlaceholdersAndVanishInput } from "../../components/ui/placeholders-and-vanish-input";
+import { placeholders, tasks } from "../../data/data";
+import { ResumeList } from "../../components/ResumeList";
+import { ChatList } from "../../components/ChatList";
 
 export function DashboardLayout() {
   const { userId, isLoaded } = useAuth();
@@ -38,6 +41,8 @@ export function DashboardLayout() {
                 <SidebarLink key={idx} link={link} />
               ))}
             </div>
+            {open && <ChatList />}
+            {open && <ResumeList />}
           </div>
           <div>
             <SignedIn>
@@ -54,35 +59,6 @@ export function DashboardLayout() {
     </div>
   );
 }
-
-const tasks = [
-  {
-    title: "Chat",
-    description: "Start learning with AI Assistant.",
-  },
-  {
-    title: "Resume Builder",
-    description: "Build your unique resume.",
-  },
-  {
-    title: "Practice / Coming Soon!",
-    description: "Practice interview coding challenges.",
-    disabled: true,
-  },
-];
-
-const placeholders = [
-  "Key components of the MERN stack?",
-  "Securing a REST API with JWT?",
-  "Benefits of MongoDB in full-stack apps?",
-  "Common cyber attacks and prevention?",
-  "Basic security practices for web servers?",
-  "Preventing SQL injection in Node.js?",
-  "Best practices for password security?",
-  "Ensuring data encryption in transit/rest?",
-  "Improving performance in React apps?",
-  "Difference between symmetric and asymmetric encryption?",
-];
 
 const Dashboard = ({
   children,
