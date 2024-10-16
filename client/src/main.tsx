@@ -13,6 +13,16 @@ import { Chat } from "./pages/chat/Chat";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
+  { path: "/sign-up", element: <SignUpPage /> },
+  { path: "/sign-in", element: <SignInPage /> },
+  {
+    path: "/sign-up/sso-callback",
+    element: <DashboardLayout />,
+  },
+  {
+    path: "/sign-in/sso-callback",
+    element: <DashboardLayout />,
+  },
   {
     path: "/dashboard",
     element: <DashboardLayout />,
@@ -26,16 +36,6 @@ const router = createBrowserRouter([
         element: <Chat />,
       },
     ],
-  },
-  { path: "/sign-up", element: <SignUpPage /> },
-  { path: "/sign-in", element: <SignInPage /> },
-  {
-    path: "/sign-up/sso-callback",
-    element: <SignUpPage />,
-  },
-  {
-    path: "/sign-in/sso-callback",
-    element: <SignInPage />,
   },
 ]);
 

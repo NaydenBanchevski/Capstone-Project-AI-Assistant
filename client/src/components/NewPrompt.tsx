@@ -87,7 +87,7 @@ export const NewPrompt = ({ data }) => {
         newText += chunkText;
 
         setAnswer(newText);
-        await delay(50);
+        await delay(100);
       }
 
       mutation.mutate();
@@ -117,8 +117,8 @@ export const NewPrompt = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="flex w-full justify-center">
-      <div className="h-full flex flex-col max-w-[1200px]">
+    <div className="flex sm:w-full px-4  mt-4 justify-center w-[400px]">
+      <div className="h-full flex flex-col max-w-[1200px] ">
         {img.isLoading && (
           <div className="text-center text-gray-500 mb-4">Loading...</div>
         )}
@@ -133,13 +133,13 @@ export const NewPrompt = ({ data }) => {
         )}
         {question && (
           <div className="flex w-full justify-end ">
-            <div className="text-right p-4 bg-gradient-to-r from-sky-500 to-sky-800 text-white rounded-[15px] mb-2">
+            <div className="bg-gradient-to-r from-sky-500 rounded-[15px] text-right p-2 px-4 ml-auto my-2 to-sky-800 text-white">
               {question}
             </div>
           </div>
         )}
         {answer && (
-          <div className="message p-4  max-w-[800px] rounded-[15px] mb-[20px] text-black">
+          <div className="message p-4  max-w-[800px] text-justify rounded-[15px] mb-[20px] text-black">
             <ReactMarkdown>{answer}</ReactMarkdown>
           </div>
         )}
@@ -155,7 +155,7 @@ export const NewPrompt = ({ data }) => {
                 type="text"
                 name="text"
                 placeholder="Message Assistant"
-                className="bg-transparent p-3 w-[300px] md:w-full text-white outline-none placeholder:text-neutral-200/50"
+                className="bg-transparent p-3 w-[250px] sm:w-[600px] text-white outline-none placeholder:text-neutral-200/50"
                 aria-label="Message Assistant"
                 disabled={loading}
               />

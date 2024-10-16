@@ -6,22 +6,11 @@ import { SignedIn, useAuth, UserButton, useUser } from "@clerk/clerk-react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { links, Logo, LogoIcon } from "../../components/ui/Logo";
 import { HoverEffect } from "../../components/ui/card-hover-effect";
-import { placeholders, tasks } from "../../data/data.tsx";
+import { tasks } from "../../data/data.tsx";
 import { ResumeList } from "../../components/ResumeList";
 import { ChatList } from "../../components/ChatList";
-import {
-  IconArrowAutofitLeft,
-  IconArrowLeft,
-  IconArrowRight,
-  IconSignRightFilled,
-  IconSquareRoundedArrowRight,
-  IconSwipeRightFilled,
-} from "@tabler/icons-react";
-import {
-  QueryClient,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { IconArrowRight } from "@tabler/icons-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function DashboardLayout() {
   const { userId, isLoaded } = useAuth();
@@ -98,7 +87,6 @@ const Dashboard = ({
       }).then((res) => res.json());
     },
     onSuccess: (id) => {
-      // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["userChats"] });
       navigate(`chat/${id}`);
     },
@@ -116,28 +104,28 @@ const Dashboard = ({
 
   return (
     <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1">
-      <h1 className="text-2xl font-bold text-sky-800">Hello, {username}!</h1>
-      <div>
+      <div className="ml-[100px]">
+        <h1 className="text-2xl font-bold text-sky-800">Hello, {username}!</h1>
         <p className="text-sm text-gray-600 dark:text-gray-400">
           Welcome to AI Assistant, where you can explore coding topics, build
           your resume, and more.
         </p>
       </div>
       {showTasks ? (
-        <div className="flex w-full flex-col h-full items-center justify-start mt-52 relative">
+        <div className="flex w-full flex-col h-full items-center justify-start  relative">
           <div className="max-w-5xl mx-auto px-8">
             <HoverEffect items={tasks} />
           </div>
           <div className=" flex  absolute bottom-5">
             <form
-              className="flex bg-gradient-to-r rounded-2xl w-[300px] xl:w-[800px] from-sky-500 to-sky-800 justify-between items-center"
+              className="flex bg-gradient-to-r rounded-2xl w-[300px] md:w-[400px] lg:w-[600px] xl:w-[800px] from-sky-500 to-sky-800 justify-between items-center"
               onSubmit={handleSubmit}
             >
               <input
                 type="text"
                 name="text"
                 placeholder="Message Assistant"
-                className="bg-transparent p-3 pl-6 text-white outline-none placeholder:text-white/50"
+                className="bg-transparent p-3 pl-6 w-full text-white outline-none placeholder:text-white/50 autofill:rounded-2xl"
               />
               <button
                 type="submit"

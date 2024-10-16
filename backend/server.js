@@ -64,6 +64,7 @@ app.post("/api/chat", ClerkExpressWithAuth(), async (req, res) => {
   }
 });
 
+// // // Fetch User Chats Route
 app.get("/api/userchats", ClerkExpressWithAuth(), async (req, res) => {
   const userId = req.auth.userId;
 
