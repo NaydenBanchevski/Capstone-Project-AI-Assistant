@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 interface PlanCategory {
   title: string;
@@ -8,6 +9,7 @@ interface PlanCategory {
 }
 
 export const Categories: React.FC = () => {
+  const navigate = useNavigate();
   const categories: PlanCategory[] = [
     {
       title: "Students",
@@ -18,7 +20,7 @@ export const Categories: React.FC = () => {
         "Resume tips and building advice",
         "Access to community forums",
       ],
-      isHighlighted: true, // Highlight the students plan
+      isHighlighted: true,
     },
     {
       title: "Alumni",
@@ -45,7 +47,7 @@ export const Categories: React.FC = () => {
   ];
 
   return (
-    <section className="text-white mb-[100px]  px-8" id="contact">
+    <section className="text-white mb-[100px]  px-8">
       <div
         className="max-w-[1200px] 
        mt-0 mx-auto text-center"
@@ -74,12 +76,13 @@ export const Categories: React.FC = () => {
                 ))}
               </ul>
               <button
+                onClick={() => navigate("/sign-in")}
                 className={`w-full py-2 px-6 rounded-xl font-semibold ${
                   category.isHighlighted
                     ? "bg-yellow-400 text-sky-700 hover:bg-yellow-500"
                     : "bg-white text-sky-700 hover:bg-yellow-500 cursor-not-allowed opacity-50"
                 } transition duration-300`}
-                disabled={!category.isHighlighted} // Disable buttons for non-highlighted categories
+                disabled={!category.isHighlighted}
               >
                 {category.isHighlighted
                   ? "Get Started as a Student"

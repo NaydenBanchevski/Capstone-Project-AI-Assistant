@@ -23,7 +23,7 @@ export default function SignUpPage() {
   }, [isLoaded, userId, location, navigate]);
 
   return (
-    <div className="relative bg-gradient-to-b overflow-hidden from-sky-500 to-sky-800 color-white">
+    <div className="relative h-full min-h-[100vh] bg-gradient-to-b  from-sky-500 to-sky-800 color-white">
       <BackgroundBeams className="opacity-50 " />
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -33,12 +33,12 @@ export default function SignUpPage() {
           duration: 1.2,
           ease: "easeInOut",
         }}
-        className="w-full  h-[100vh] flex  flex-col items-center "
+        className="w-full   flex  flex-col items-center "
       >
-        <h2 className="text-4xl sm:mt-[200px] mt-[50px] md:text-4xl lg:text-7xl font-semibold max-w-7xl mx-auto text-center relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-sky-800/1% mb-10">
+        <h2 className="text-4xl sm:mt-[100px]  mt-[50px] md:text-4xl lg:text-7xl font-semibold max-w-7xl mx-auto text-center relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-sky-800/1% mb-10">
           Sign Up
         </h2>
-        <div className="relative rounded-xl overflow-hidden">
+        <div className="relative overflow-hidden rounded-xl ">
           <SignUp path="/sign-up" />
           <BorderBeam
             colorFrom="#facc15"

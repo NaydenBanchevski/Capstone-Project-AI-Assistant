@@ -6,10 +6,22 @@ import { SignedIn, useAuth, UserButton, useUser } from "@clerk/clerk-react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { links, Logo, LogoIcon } from "../../components/ui/Logo";
 import { HoverEffect } from "../../components/ui/card-hover-effect";
-import { PlaceholdersAndVanishInput } from "../../components/ui/placeholders-and-vanish-input";
-import { placeholders, tasks } from "../../data/data";
+import { placeholders, tasks } from "../../data/data.tsx";
 import { ResumeList } from "../../components/ResumeList";
 import { ChatList } from "../../components/ChatList";
+import {
+  IconArrowAutofitLeft,
+  IconArrowLeft,
+  IconArrowRight,
+  IconSignRightFilled,
+  IconSquareRoundedArrowRight,
+  IconSwipeRightFilled,
+} from "@tabler/icons-react";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 export function DashboardLayout() {
   const { userId, isLoaded } = useAuth();
@@ -24,7 +36,7 @@ export function DashboardLayout() {
     }
   }, [isLoaded, userId, navigate]);
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return;
 
   return (
     <div
@@ -70,14 +82,36 @@ const Dashboard = ({
   const { user } = useUser();
   const username = user?.firstName || "Guest";
 
-  const showTasks = location.pathname === "/dashboard";
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const showTasks = location.pathname === "/dashboard";
+  const mutation = useMutation({
+    mutationFn: (text: string) => {
+      return fetch(`${import.meta.env.VITE_API_URL}/api/chat`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      }).then((res) => res.json());
+    },
+    onSuccess: (id) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["userChats"] });
+      navigate(`chat/${id}`);
+    },
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
+    const formData = new FormData(e.currentTarget);
+    const text = formData.get("text") as string;
+
+    if (!text) return;
+
+    mutation.mutate(text);
   };
 
   return (
@@ -90,16 +124,28 @@ const Dashboard = ({
         </p>
       </div>
       {showTasks ? (
-        <div className="flex w-full flex-col h-full justify-center items-center relative">
+        <div className="flex w-full flex-col h-full items-center justify-start mt-52 relative">
           <div className="max-w-5xl mx-auto px-8">
             <HoverEffect items={tasks} />
           </div>
-          <div className="w-full absolute bottom-5">
-            <PlaceholdersAndVanishInput
-              placeholders={placeholders}
-              onChange={handleChange}
-              onSubmit={onSubmit}
-            />
+          <div className=" flex  absolute bottom-5">
+            <form
+              className="flex bg-gradient-to-r rounded-2xl w-[300px] xl:w-[800px] from-sky-500 to-sky-800 justify-between items-center"
+              onSubmit={handleSubmit}
+            >
+              <input
+                type="text"
+                name="text"
+                placeholder="Message Assistant"
+                className="bg-transparent p-3 pl-6 text-white outline-none placeholder:text-white/50"
+              />
+              <button
+                type="submit"
+                className=" text-white px-4 py-2 rounded-md"
+              >
+                <IconArrowRight width={20} />
+              </button>
+            </form>
           </div>
         </div>
       ) : (

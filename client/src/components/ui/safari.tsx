@@ -141,9 +141,8 @@ export default function Safari({
           />
         </g>
         <image
+          className="object-contain pt-[20px] w-full h-full"
           href={src}
-          width="1200"
-          height="700"
           x="1"
           y="52"
           preserveAspectRatio="xMidYMid slice"

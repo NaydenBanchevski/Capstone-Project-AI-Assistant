@@ -3,10 +3,7 @@ import { WobbleCard } from "./ui/wobble-card";
 
 export const About = () => {
   return (
-    <section
-      className="h-full flex justify-center w-full mb-[100px] "
-      id="about"
-    >
+    <section className="h-full flex justify-center w-full mb-[100px] ">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -17,7 +14,7 @@ export const About = () => {
         }}
         className="flex flex-col  max-w-[1200px] items-center mt-0 h-full w-full"
       >
-        <h2 className="text-4xl sm:mt-[200px] mt-[50px] md:text-4xl lg:text-7xl font-semibold max-w-7xl mx-auto text-center  relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-sky-500 via-sky-800 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white mb-10">
+        <h2 className="text-4xl sm:mt-[100px] mt-[50px] md:text-4xl lg:text-7xl font-semibold max-w-7xl mx-auto text-center  relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-sky-500 via-sky-800 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white mb-10">
           About <br /> AI Assistant
         </h2>
 

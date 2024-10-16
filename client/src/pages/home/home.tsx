@@ -19,6 +19,7 @@ export const Home = () => {
       <Hero />
 
       <motion.div
+        id="about"
         initial="hidden"
         whileInView="visible"
         exit="hidden"
@@ -30,6 +31,7 @@ export const Home = () => {
       </motion.div>
 
       <motion.div
+        id="contact"
         initial="hidden"
         whileInView="visible"
         exit="hidden"

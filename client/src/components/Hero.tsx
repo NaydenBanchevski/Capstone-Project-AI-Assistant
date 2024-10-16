@@ -33,7 +33,8 @@ export const Hero = () => {
         >
           <Safari
             url="ai-assistant-Per-Scholas.com"
-            className="w-[380px] h-full sm:w-full sm:h-full relative "
+            className="w-[380px] h-full sm:w-full sm:h-full relative object-fit"
+            src="/ai.png"
           />
           <BorderBeam
             colorFrom="#facc15"
