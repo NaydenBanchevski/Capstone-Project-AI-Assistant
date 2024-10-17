@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
+    "build": "react-scripts build",
+    "build": "next build",
     "preview": "vite preview"
   },
   "dependencies": {
