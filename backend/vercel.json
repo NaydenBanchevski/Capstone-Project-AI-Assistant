@@ -3,30 +3,17 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
-      "use": "@vercel/node"
+      "src": "server/server.js"
     },
     {
-      "src": "public/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "views/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "data/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "middleware/**/*",
+      "src": "src/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "server.js"
+      "src": "/api/(.*)",
+      "dest": "/server/server.js"
     }
   ]
 }
