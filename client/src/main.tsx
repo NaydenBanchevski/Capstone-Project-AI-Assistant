@@ -7,13 +7,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { DashboardLayout } from "./pages/dashboard/Dashboard";
-import { Home } from "./pages/home/Home";
 import SignInPage from "./pages/sign-in/SignIn";
 import SignUpPage from "./pages/sign-up/SignUp";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { Resume } from "./pages/resume/Resume";
 import { v4 as uuidV4 } from "uuid";
 import { Chat } from "./pages/chat/Chat";
+import Home from "./pages/home/Home";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },

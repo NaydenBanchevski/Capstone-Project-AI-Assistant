@@ -11,7 +11,7 @@ const sectionVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-export const Home = () => {
+const Home = () => {
   return (
     <main className="h-full flex flex-col">
       <Nav />
@@ -54,3 +54,4 @@ export const Home = () => {
     </main>
   );
 };
+export default Home;
