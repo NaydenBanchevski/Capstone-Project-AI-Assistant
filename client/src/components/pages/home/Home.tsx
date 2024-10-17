@@ -1,17 +1,17 @@
-import { Footer } from "../../components/Footer";
-import { Hero } from "../../components/Hero";
-import { About } from "../../components/About";
-import { Categories } from "../../components/Categories";
-import { BackgroundBeams } from "../../components/ui/background-beams";
+import { Hero } from "../../Hero";
+import { Nav } from "../../Nav";
 import { motion } from "framer-motion";
-import { Nav } from "../../components/Nav";
+import { BackgroundBeams } from "../../ui/background-beams";
+import { About } from "../../About";
+import { Categories } from "../../Categories";
+import { Footer } from "../../Footer";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
 
-const Home = () => {
+export const Home = () => {
   return (
     <main className="h-full flex flex-col">
       <Nav />
@@ -54,4 +54,3 @@ const Home = () => {
     </main>
   );
 };
-export default Home;

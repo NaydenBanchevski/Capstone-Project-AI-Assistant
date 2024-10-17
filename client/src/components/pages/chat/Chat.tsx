@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import Markdown from "react-markdown";
 import { IKImage } from "imagekitio-react";
-import { NewPrompt } from "../../components/NewPrompt";
+import { NewPrompt } from "../../NewPrompt";
 
 interface Message {
   img?: string;

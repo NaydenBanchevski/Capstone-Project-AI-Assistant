@@ -1,13 +1,16 @@
-import { SignUp, useAuth } from "@clerk/clerk-react";
-import { BorderBeam } from "../../components/ui/border-beam";
+import { SignIn, useAuth } from "@clerk/clerk-react";
+
 import { motion } from "framer-motion";
-import { BackgroundBeams } from "../../components/ui/background-beams";
-import { useLocation, useNavigate } from "react-router";
+
+import { useNavigate } from "react-router";
+import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-export default function SignUpPage() {
+import { BackgroundBeams } from "../../ui/background-beams";
+import { BorderBeam } from "../../ui/border-beam";
+
+export default function SignInPage() {
   const { userId, isLoaded } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -16,12 +19,12 @@ export default function SignUpPage() {
     if (error) {
       console.error("SSO Error:", error);
     }
-
     if (isLoaded && userId) {
       navigate("/dashboard");
     }
-  }, [isLoaded, userId, location, navigate]);
+  }, [isLoaded, userId, location]);
 
+  const navigate = useNavigate();
   return (
     <div className="relative h-full min-h-[100vh] bg-gradient-to-b  from-sky-500 to-sky-800 color-white">
       <BackgroundBeams className="opacity-50 " />
@@ -33,13 +36,13 @@ export default function SignUpPage() {
           duration: 1.2,
           ease: "easeInOut",
         }}
-        className="w-full   flex  flex-col items-center "
+        className="w-full flex  flex-col overflow-hidden justify-start items-center "
       >
-        <h2 className="text-4xl sm:mt-[100px]  mt-[50px] md:text-4xl lg:text-7xl font-semibold max-w-7xl mx-auto text-center relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-sky-800/1% mb-10">
-          Sign Up
+        <h2 className="text-4xl sm:mt-[100px] mt-[50px] md:text-4xl lg:text-7xl font-semibold max-w-7xl mx-auto text-center relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-sky-800/1% mb-10">
+          Sign In
         </h2>
-        <div className="relative overflow-hidden rounded-xl ">
-          <SignUp path="/sign-up" />
+        <div className="relative rounded-xl ">
+          <SignIn path="/sign-in" forceRedirectUrl="/dashboard" />
           <BorderBeam
             colorFrom="#facc15"
             colorTo="#F59E0B"

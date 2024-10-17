@@ -6,14 +6,14 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import { DashboardLayout } from "./pages/dashboard/Dashboard";
-import SignInPage from "./pages/sign-in/SignIn";
-import SignUpPage from "./pages/sign-up/SignUp";
+import { Home } from "./components/pages/home/Home";
+import SignUpPage from "./components/pages/sign-up/SignUp";
+import SignInPage from "./components/pages/sign-in/SignIn";
+import { DashboardLayout } from "./components/pages/dashboard/Dashboard";
+import { Resume } from "./components/pages/resume/Resume";
+import { Chat } from "./components/pages/chat/Chat";
 import { ClerkProvider } from "@clerk/clerk-react";
-import { Resume } from "./pages/resume/Resume";
 import { v4 as uuidV4 } from "uuid";
-import { Chat } from "./pages/chat/Chat";
-import Home from "./pages/home/Home";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },

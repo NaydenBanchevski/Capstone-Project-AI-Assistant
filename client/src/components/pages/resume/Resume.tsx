@@ -5,9 +5,10 @@ import { useParams, useLocation } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Quill, { Quill as QuillType } from "quill";
 import { useAuth } from "@clerk/clerk-react";
-import { model } from "../../components/gemini/gemini";
+
 import Markdown from "react-markdown";
 import { IconArrowRight } from "@tabler/icons-react";
+import { model } from "../../gemini/gemini";
 
 interface ChatMessage {
   sender: "user" | "assistant";

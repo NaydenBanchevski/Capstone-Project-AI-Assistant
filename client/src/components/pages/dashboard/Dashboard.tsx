@@ -1,16 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-import { cn } from "../../lib/utils";
-import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/sidebar";
+
 import { SignedIn, useAuth, UserButton, useUser } from "@clerk/clerk-react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { links, Logo, LogoIcon } from "../../components/ui/Logo";
-import { HoverEffect } from "../../components/ui/card-hover-effect";
-import { tasks } from "../../data/data.tsx";
-import { ResumeList } from "../../components/ResumeList";
-import { ChatList } from "../../components/ChatList";
+
 import { IconArrowRight } from "@tabler/icons-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Sidebar, SidebarBody, SidebarLink } from "../../ui/sidebar";
+import { links, Logo, LogoIcon } from "../../ui/Logo";
+import { ChatList } from "../../ChatList";
+import { ResumeList } from "../../ResumeList";
+import { HoverEffect } from "../../ui/card-hover-effect";
+import { cn } from "../../../lib/utils";
+import { tasks } from "../../../data/data";
 
 export function DashboardLayout() {
   const { userId, isLoaded } = useAuth();
