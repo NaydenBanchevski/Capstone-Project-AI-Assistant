@@ -31,6 +31,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use(express.json());
 
 const connectToMongoDB = async () => {
   try {
