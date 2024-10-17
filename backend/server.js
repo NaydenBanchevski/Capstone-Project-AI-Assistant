@@ -16,20 +16,14 @@ import { Server } from "socket.io";
 
 const port = process.env.PORT || 3000;
 const app = express();
-app.use(ClerkExpressWithAuth());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL,
-    origin: process.env.SERVER_URL,
-    credentials: true,
-  })
-);
+// Clerk middleware for authentication
+app.use(ClerkExpressWithAuth());
 
-const allowedOrigins = [process.env.CLIENT_URL];
-
+// CORS configuration
+const allowedOrigins = [process.env.CLIENT_URL, process.env.SERVER_URL];
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -39,8 +33,11 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
+    credentials: true,
   })
 );
+
+// MongoDB connection function
 const connectToMongoDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -50,6 +47,7 @@ const connectToMongoDB = async () => {
   }
 };
 
+// Webhook route for user creation
 app.post(
   "/get/webhooks",
   bodyParser.raw({ type: "application/json" }),
@@ -63,46 +61,32 @@ app.post(
 
       const { id, ...attributes } = evt.data;
       const eventType = evt.type;
-      console.log(evt.data);
 
       if (eventType === "user.created") {
         const firstName = attributes.first_name;
         const lastName = attributes.last_name;
-
         const emailAddresses = attributes.email_addresses.map(
           (addr) => addr.email_address
         );
         const email = emailAddresses[0];
 
-        console.log(firstName, lastName, email);
-
-        const user = new User({
-          clerkUserId: id,
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-        });
-
+        const user = new User({ clerkUserId: id, firstName, lastName, email });
         await user.save();
-        console.log("User is created");
+        console.log("User created:", firstName, lastName, email);
       }
 
-      res.status(200).json({
-        success: true,
-        message: "Webhook received",
-      });
+      res.status(200).json({ success: true, message: "Webhook received" });
     } catch (err) {
       console.error("Error handling webhook:", err);
-      res.status(400).json({
-        success: false,
-        message: err.message,
-      });
+      res.status(400).json({ success: false, message: err.message });
     }
   }
 );
 
+// JSON body parser
 app.use(express.json());
 
+// Socket.IO setup for real-time collaboration
 const io = new Server(3001, {
   cors: {
     origin: process.env.CLIENT_URL,
@@ -112,11 +96,10 @@ const io = new Server(3001, {
 
 const defaultValue = "";
 
-// Handle socket connections
+// Socket.io connections and document handling
 io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
 
-  // Check if userId is provided
   if (!userId) {
     console.error("No userId provided");
     socket.disconnect();
@@ -125,26 +108,20 @@ io.on("connection", (socket) => {
 
   console.log(`User connected with ID: ${userId}`);
 
-  // Handle document-related events
   socket.on("get-document", async (documentId) => {
     try {
       const document = await findOrCreateDocument(documentId, userId);
       socket.join(documentId);
-      socket.emit("load-document", document?.data || {});
+      socket.emit("load-document", document?.data || defaultValue);
 
-      // Broadcast changes to other connected clients
       socket.on("send-changes", (delta) => {
         socket.broadcast.to(documentId).emit("receive-changes", delta);
       });
 
-      // Save document on client request
       socket.on("save-document", async (data) => {
         await Resume.findByIdAndUpdate(
           documentId,
-          {
-            data,
-            chatHistory: document.chatHistory,
-          },
+          { data, chatHistory: document.chatHistory },
           { upsert: true }
         );
       });
@@ -153,23 +130,17 @@ io.on("connection", (socket) => {
     }
   });
 
-  // Handle disconnection
   socket.on("disconnect", () => {
     console.log(`User disconnected with ID: ${userId}`);
   });
 });
 
-// Find or create document based on userId and documentId
+// Helper function to find or create a document
 async function findOrCreateDocument(documentId, userId) {
   try {
     let document = await Resume.findById(documentId);
     if (!document) {
-      console.log("Document not found, creating a new one");
-      document = new Resume({
-        _id: documentId,
-        userId,
-        data: defaultValue,
-      });
+      document = new Resume({ _id: documentId, userId, data: defaultValue });
       await document.save();
     }
     return document;
@@ -179,43 +150,31 @@ async function findOrCreateDocument(documentId, userId) {
   }
 }
 
-// API to fetch resume by ID
+// Resume API routes
 app.get("/api/resume/:id", async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const resume = await Resume.findById(id);
-    if (!resume) {
-      return res.status(404).json({ error: "Content not found" });
-    }
+    const resume = await Resume.findById(req.params.id);
+    if (!resume) return res.status(404).json({ error: "Resume not found" });
     res.json(resume);
   } catch (error) {
-    console.error("Error fetching content:", error);
-    res.status(500).json({ error: "Error fetching content" });
+    console.error("Error fetching resume:", error);
+    res.status(500).json({ error: "Error fetching resume" });
   }
 });
 
-// API to update resume
 app.put("/api/resume/:id", ClerkExpressWithAuth(), async (req, res) => {
   const { id } = req.params;
   const userId = req.auth.userId;
   const { content, chatMessage, name } = req.body;
 
   try {
-    if (!id) {
-      throw new Error("No resume ID provided");
-    }
-
     let updateOperation = {};
     if (content) updateOperation.data = content;
-    if (chatMessage && Array.isArray(chatMessage)) {
+    if (chatMessage && Array.isArray(chatMessage))
       updateOperation.$push = { chatHistory: { $each: chatMessage } };
-    }
 
     const existingResume = await Resume.findById(id);
-
     if (!existingResume) {
-      console.log("Resume not found, creating a new document");
       const newResume = new Resume({
         _id: id,
         userId,
@@ -226,68 +185,46 @@ app.put("/api/resume/:id", ClerkExpressWithAuth(), async (req, res) => {
       return res.json(newResume);
     }
 
-    if (name && name !== existingResume.name) {
-      updateOperation.name = name;
-    }
-
+    if (name && name !== existingResume.name) updateOperation.name = name;
     await Resume.updateOne({ _id: id }, updateOperation);
-
     const updatedResume = await Resume.findById(id);
     res.json(updatedResume);
   } catch (error) {
     console.error("Error updating resume:", error);
-    res.status(500).json({
-      error: "Internal server error",
-      message: error.message,
-      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
-    });
+    res
+      .status(500)
+      .json({ error: "Internal server error", message: error.message });
   }
 });
 
 app.delete("/api/resume/:id", async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const deletedResume = await Resume.findByIdAndDelete(id);
-
-    if (!deletedResume) {
-      return res.status(404).json({ error: "Content not found" });
-    }
-
+    const deletedResume = await Resume.findByIdAndDelete(req.params.id);
+    if (!deletedResume)
+      return res.status(404).json({ error: "Resume not found" });
     res.json({
-      message: "Content deleted successfully",
+      message: "Resume deleted successfully",
       content: deletedResume,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error deleting resume:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-app.get("/api/resume", async (req, res) => {
-  try {
-    const userResumes = await Resume.find();
-    res.status(200).send(userResumes);
-  } catch (error) {
-    console.error("Error fetching user chats:", err);
-    res.status(500).send("Error fetching user chats!");
-  }
-});
-
-// ImageKit Configuration
+// ImageKit Authentication
 const imagekit = new ImageKit({
   publicKey: process.env.IMAGE_KIT_PUBLIC_KEY,
   privateKey: process.env.IMAGE_KIT_PRIVATE_KEY,
   urlEndpoint: process.env.IMAGE_KIT_URL,
 });
 
-// Routes
-
 app.get("/api/upload", (req, res) => {
   const result = imagekit.getAuthenticationParameters();
   res.send(result);
 });
 
+// Chat-related routes
 app.post("/api/chat", ClerkExpressWithAuth(), async (req, res) => {
   const userId = req.auth.userId;
   const { text } = req.body;
@@ -337,16 +274,12 @@ app.get("/api/userchats", ClerkExpressWithAuth(), async (req, res) => {
   }
 });
 
-app.get("/api/chat/:id", async (req, res) => {
+app.get("/api/chat/:id", ClerkExpressWithAuth(), async (req, res) => {
   const userId = req.auth.userId;
 
   try {
     const chat = await Chat.findOne({ _id: req.params.id, userId });
-
-    if (!chat) {
-      return res.status(404).send("Chat not found!");
-    }
-
+    if (!chat) return res.status(404).send("Chat not found!");
     res.status(200).send(chat);
   } catch (err) {
     console.error("Error fetching chat:", err);
@@ -359,62 +292,24 @@ app.put("/api/chat/:id", ClerkExpressWithAuth(), async (req, res) => {
   const { question, answer, img } = req.body;
 
   const newItems = [
-    ...(question
-      ? [{ role: "user", parts: [{ text: question }], ...(img && { img }) }]
-      : []),
-    { role: "model", parts: [{ text: answer }] },
+    ...(question ? [{ role: "user", parts: [{ text: question }] }] : []),
+    ...(answer ? [{ role: "assistant", parts: [{ text: answer, img }] }] : []),
   ];
 
   try {
-    const updatedChat = await Chat.updateOne(
+    await Chat.updateOne(
       { _id: req.params.id, userId },
       { $push: { history: { $each: newItems } } }
     );
-
-    if (!updatedChat.matchedCount) {
-      return res.status(404).send("Chat not found or not owned by user!");
-    }
-
-    res.status(200).send("Chat updated successfully!");
+    res.send("Chat updated successfully!");
   } catch (err) {
-    console.error("Error adding conversation:", err);
-    res.status(500).send("Error adding conversation!");
+    console.error("Error updating chat:", err);
+    res.status(500).send("Error updating chat!");
   }
 });
 
-app.delete("/api/chat/:chatId", ClerkExpressWithAuth(), async (req, res) => {
-  const userId = req.auth.userId;
-  const chatId = req.params.chatId;
-
-  try {
-    const userChat = await UserChat.findOne({ userId });
-
-    if (!userChat) {
-      return res.status(404).send("User chats not found!");
-    }
-
-    userChat.chats = userChat.chats.filter(
-      (chat) => chat._id.toString() !== chatId
-    );
-    await userChat.save();
-
-    const deletedChat = await Chat.findOneAndDelete({ _id: chatId, userId });
-
-    if (!deletedChat) {
-      return res
-        .status(404)
-        .send("Chat not found in the main chat collection!");
-    }
-
-    res.status(200).send("Chat deleted successfully!");
-  } catch (err) {
-    console.error("Error deleting chat:", err);
-    res.status(500).send("Error deleting chat!");
-  }
-});
-
-// Start the Server
-app.listen(port, async () => {
-  await connectToMongoDB();
-  console.log(`Server running on port ${port}`);
+// Start the server and connect to MongoDB
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+  connectToMongoDB();
 });
