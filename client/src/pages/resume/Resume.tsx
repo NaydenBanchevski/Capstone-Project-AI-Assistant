@@ -105,7 +105,7 @@ export const Resume: React.FC<JobResumePageProps> = ({ data }) => {
 
   useEffect(() => {
     const s = io("http://localhost:3001", {
-      query: { userId }, // Pass userId here
+      query: { userId },
     });
     setSocket(s);
 
