@@ -27,6 +27,8 @@ app.use(
   })
 );
 
+app.use(bodyParser.json());
+
 const corsOptions = {
   origin: process.env.CLIENT_URL,
   optionsSuccessStatus: 200,
