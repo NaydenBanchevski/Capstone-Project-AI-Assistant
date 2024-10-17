@@ -105,8 +105,8 @@ export const Resume: React.FC<JobResumePageProps> = ({ data }) => {
   });
 
   useEffect(() => {
-    const s = io("http://localhost:3001", {
-      query: { userId },
+    const s = io("https://capstone-project-ai-assistant-1.onrender.com", {
+      query: { userId }, // Pass the userId or any other query parameters as required
     });
     setSocket(s);
 
