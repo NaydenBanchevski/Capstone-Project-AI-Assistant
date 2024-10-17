@@ -15,6 +15,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export function DashboardLayout() {
   const { userId, isLoaded } = useAuth();
   const [open, setOpen] = useState(false);
+  const { user } = useUser();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,6 +23,9 @@ export function DashboardLayout() {
   useEffect(() => {
     if (isLoaded && !userId) {
       navigate("/sign-in");
+    }
+    if (user && userId) {
+      navigate("/dashboard");
     }
   }, [isLoaded, userId, navigate]);
 
@@ -75,6 +79,7 @@ const Dashboard = ({
   const navigate = useNavigate();
 
   const showTasks = location.pathname === "/dashboard";
+
   const mutation = useMutation({
     mutationFn: (text: string) => {
       return fetch(`${import.meta.env.VITE_API_URL}/api/chat`, {
@@ -104,7 +109,7 @@ const Dashboard = ({
 
   return (
     <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1">
-      <div className="ml-[100px]">
+      <div className="ml-[200px]">
         <h1 className="text-2xl font-bold text-sky-800">Hello, {username}!</h1>
         <p className="text-sm text-gray-600 dark:text-gray-400">
           Welcome to AI Assistant, where you can explore coding topics, build

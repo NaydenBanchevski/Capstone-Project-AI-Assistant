@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc --noEmit && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -24,6 +24,7 @@
     "imagekitio-react": "^4.2.0",
     "lucide-react": "^0.447.0",
     "mini-svg-data-uri": "^1.4.4",
+    "quill": "^2.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
@@ -31,6 +32,7 @@
     "react-router": "^6.27.0",
     "react-router-dom": "^6.27.0",
     "react-syntax-highlighter": "^15.5.0",
+    "socket.io-client": "^4.8.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^10.0.0"
@@ -50,6 +52,7 @@
     "tailwindcss": "^3.4.13",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.7.0",
-    "vite": "^5.4.8"
+    "vite": "^5.4.8",
+    "vite-plugin-checker": "^0.8.0"
   }
 }

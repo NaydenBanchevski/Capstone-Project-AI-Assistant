@@ -20,6 +20,7 @@ export default function Safari({
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
+      className="w-full"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
@@ -141,10 +142,11 @@ export default function Safari({
           />
         </g>
         <image
-          className="object-contain pt-[20px] w-full h-full"
           href={src}
-          x="1"
-          y="52"
+          x="0"
+          y="40"
+          width="100%"
+          height="100%"
           preserveAspectRatio="xMidYMid slice"
           clipPath="url(#roundedBottom)"
         />

@@ -31,11 +31,7 @@ export const Hero = () => {
           className="
            rounded-xl flex overflow-hidden"
         >
-          <Safari
-            url="ai-assistant-Per-Scholas.com"
-            className="w-[380px] h-full sm:w-full sm:h-full relative object-fit"
-            src="/ai.png"
-          />
+          <Safari url="perscholas-ai.com" src="/ai.png" />
           <BorderBeam
             colorFrom="#facc15"
             colorTo="#F59E0B"

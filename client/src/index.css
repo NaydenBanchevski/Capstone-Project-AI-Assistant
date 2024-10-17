@@ -20,3 +20,21 @@ select:-webkit-autofill:focus {
 html {
   scroll-behavior: smooth;
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #0369a1;
+  border-radius: 6px;
+  border: 1px solid #0ea5e9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: linear-gradient(to bottom, #0ea5e9, #0369a1);
+}

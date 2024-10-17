@@ -1,4 +1,5 @@
 import { IconHome, IconInfoCircle, IconPhone } from "@tabler/icons-react";
+import { v4 as uuidV4 } from "uuid";
 
 export const navItems = [
   {
@@ -27,7 +28,7 @@ export const tasks = [
   {
     title: "Resume Builder",
     description: "Build your unique resume.",
-    link: "/dashboard/resume",
+    link: `/dashboard/resume/${uuidV4()}`,
   },
   {
     title: "FAANG / Coming Soon!",
@@ -35,17 +36,4 @@ export const tasks = [
       "Get ready for coding challenges designed for FAANG interviews and elevate your tech skills!",
     disabled: true,
   },
-];
-
-export const placeholders = [
-  "Key components of the MERN stack?",
-  "Securing a REST API with JWT?",
-  "Benefits of MongoDB in full-stack apps?",
-  "Common cyber attacks and prevention?",
-  "Basic security practices for web servers?",
-  "Preventing SQL injection in Node.js?",
-  "Best practices for password security?",
-  "Ensuring data encryption in transit/rest?",
-  "Improving performance in React apps?",
-  "Difference between symmetric and asymmetric encryption?",
 ];

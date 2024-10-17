@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { IconBrandTabler, IconList, IconMessage } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+
 export const Logo = () => {
   return (
     <Link
@@ -39,15 +40,8 @@ export const links = [
     ),
   },
   {
-    label: "Createa new chat",
-    to: "/dashboard/chat",
-    icon: (
-      <IconMessage className="text-white dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
     label: "Resume",
-    to: "/dashboard/resume",
+    to: `/dashboard/resume`,
     icon: (
       <IconList className="text-white dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),

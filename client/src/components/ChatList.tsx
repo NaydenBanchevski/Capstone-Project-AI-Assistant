@@ -57,14 +57,17 @@ export const ChatList = () => {
                 key={chat._id}
                 className="flex items-center justify-between p-2 "
               >
-                <Link to={`/dashboard/chat/${chat._id}`} className="text-white">
+                <Link
+                  to={`/dashboard/chat/${chat._id}`}
+                  className="text-white text-sm hover:underline"
+                >
                   {chat.title}
                 </Link>
                 <button
                   onClick={() => handleDeleteChat(chat._id)}
                   className="text-white  hover:text-neutral-200 ml-2"
                 >
-                  <IconTrash width={16} />
+                  <IconTrash width={16} className=" hover:text-red-300" />
                 </button>
               </div>
             ))}
