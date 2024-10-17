@@ -22,9 +22,10 @@ const __dirname = path.dirname(__filename);
 
 app.use(
   cors({
+    origin: "https://perscholas-ai-assistant-hcrf.vercel.app",
     origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-    optionsSuccessStatus: 200,
   })
 );
 
