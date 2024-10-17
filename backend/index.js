@@ -32,11 +32,6 @@ app.use(
 
 app.use(bodyParser.json());
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL,
-  optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
 const connectToMongoDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
