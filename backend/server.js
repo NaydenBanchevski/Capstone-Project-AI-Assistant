@@ -27,11 +27,19 @@ app.use(
   })
 );
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL,
-  optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
+const allowedOrigins = [process.env.CLIENT_URL];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 const connectToMongoDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
