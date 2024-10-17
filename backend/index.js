@@ -97,7 +97,7 @@ app.use(express.json());
 
 const io = new Server(3001, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: "https://perscholas-ai-assistant-hcrf.vercel.app",
     methods: ["GET", "POST"],
   },
 });
