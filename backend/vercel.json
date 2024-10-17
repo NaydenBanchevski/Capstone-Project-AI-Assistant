@@ -7,8 +7,26 @@
       "use": "@vercel/node"
     },
     {
-      "src": "src/**/*",
+      "src": "public/**/*",
       "use": "@vercel/static"
+    },
+    {
+      "src": "views/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "data/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "middleware/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
     }
   ]
 }
