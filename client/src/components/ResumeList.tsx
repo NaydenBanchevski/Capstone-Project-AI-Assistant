@@ -91,9 +91,14 @@ export const ResumeList = () => {
     }
   };
 
-  if (isLoadingResumes) return <div>Loading resumes...</div>;
+  if (isLoadingResumes)
+    return <div className="text-white">Loading resumes...</div>;
   if (resumeError)
-    return <div>Error loading resumes: {resumeError.message}</div>;
+    return (
+      <div className="text-white">
+        Error loading resumes: {resumeError.message}
+      </div>
+    );
 
   return (
     <div className="min-w-[300px] mt-8">

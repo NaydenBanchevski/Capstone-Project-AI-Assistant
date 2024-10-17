@@ -23,7 +23,7 @@ export const tasks = [
   {
     title: "Chat",
     description: "Start learning with AI Assistant.",
-    link: "/dashboard/chat",
+    link: `/dashboard`,
   },
   {
     title: "Resume Builder",

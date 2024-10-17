@@ -17,9 +17,15 @@ const safetySettings = [
   },
 ];
 
-export const model = await genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
-  safetySettings,
-});
+// Wrap in an async function
+async function loadGenerativeModel() {
+  const model = await genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    safetySettings,
+  });
+  return model;
+}
+
+export const model = await loadGenerativeModel();
 
 export default genAI;

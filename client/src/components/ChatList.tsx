@@ -47,7 +47,7 @@ export const ChatList = () => {
     <div className="min-w-[200px] mt-8">
       <p className="text-sm text-white">Recent Chats</p>
       <hr />
-      <div className="flex flex-col ">
+      <div className="flex text-white flex-col ">
         {isChatsPending
           ? "Loading..."
           : chatsError

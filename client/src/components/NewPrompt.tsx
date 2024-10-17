@@ -7,7 +7,7 @@ import { IconArrowRight } from "@tabler/icons-react";
 import ReactMarkdown from "react-markdown";
 
 export const NewPrompt = ({ data }) => {
-  const [question, setQuestion] = useState("");
+  const [questions, setQuestions] = useState([]); // Change from string to array
   const [answer, setAnswer] = useState("");
   const [img, setImg] = useState({
     isLoading: false,
@@ -33,7 +33,7 @@ export const NewPrompt = ({ data }) => {
 
   useEffect(() => {
     endRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [data, question, answer, img.dbData]);
+  }, [data, questions, answer, img.dbData]);
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -46,7 +46,7 @@ export const NewPrompt = ({ data }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            question: question.length ? question : undefined,
+            questions: questions.length ? questions : undefined, // Adjust to handle array
             answer,
             img: img.dbData?.filePath || undefined,
           }),
@@ -60,7 +60,7 @@ export const NewPrompt = ({ data }) => {
         .invalidateQueries({ queryKey: ["chat", data._id] })
         .then(() => {
           formRef.current.reset();
-          setQuestion("");
+          setQuestions([]); // Reset questions
           setAnswer("");
           setImg({ isLoading: false, error: "", dbData: {}, aiData: {} });
         });
@@ -102,7 +102,7 @@ export const NewPrompt = ({ data }) => {
     e.preventDefault();
     const text = e.target.text.value;
     if (!text) return;
-    setQuestion(text);
+    setQuestions((prev) => [...prev, text]); // Append new question
     add(text);
     e.target.reset();
   };
@@ -117,7 +117,7 @@ export const NewPrompt = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="flex sm:w-full px-4  mt-4 justify-center w-[400px]">
+    <div className="flex sm:w-full px-4 mt-4 justify-center w-[400px]">
       <div className="h-full flex flex-col max-w-[1200px] ">
         {img.isLoading && (
           <div className="text-center text-gray-500 mb-4">Loading...</div>
@@ -131,21 +131,21 @@ export const NewPrompt = ({ data }) => {
             className="rounded-md mb-4"
           />
         )}
-        {question && (
-          <div className="flex w-full justify-end ">
+        {questions.map((q, index) => (
+          <div key={index} className="flex w-full justify-end ">
             <div className="bg-gradient-to-r from-sky-500 rounded-[15px] text-right p-2 px-4 ml-auto my-2 to-sky-800 text-white">
-              {question}
+              {q}
             </div>
           </div>
-        )}
+        ))}
         {answer && (
-          <div className="message p-4  max-w-[800px] text-justify rounded-[15px] mb-[20px] text-black">
+          <div className="message p-4 max-w-[800px] text-justify rounded-[15px] mb-[20px] text-black">
             <ReactMarkdown>{answer}</ReactMarkdown>
           </div>
         )}
-        <div className="flex  justify-center mt-auto" ref={endRef}>
+        <div className="flex justify-center mt-auto" ref={endRef}>
           <form
-            className="flex bg-gradient-to-r rounded-2xl  xl:w-[800px] from-sky-500 to-sky-800 justify-between items-center"
+            className="flex bg-gradient-to-r rounded-2xl xl:w-[800px] from-sky-500 to-sky-800 justify-between items-center"
             onSubmit={handleSubmit}
             ref={formRef}
           >
