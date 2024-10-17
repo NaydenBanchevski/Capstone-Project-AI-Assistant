@@ -23,6 +23,7 @@ const __dirname = path.dirname(__filename);
 app.use(
   cors({
     origin: "https://perscholas-ai-assistant-hcrf.vercel.app",
+    origin: "https://capstone-project-ai-assistant-1.onrender.com/",
     origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
